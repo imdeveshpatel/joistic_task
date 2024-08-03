@@ -1,11 +1,13 @@
 
+import 'package:get/get.dart';
+
 class Photo {
   final int albumId;
   final int id;
   final String title;
   final String url;
   final String thumbnailUrl;
-   bool isSelected;
+  var isSelected = false.obs;
  
 
   Photo({
@@ -14,7 +16,7 @@ class Photo {
     required this.title,
     required this.url,
     required this.thumbnailUrl,
-    this.isSelected =false,
+    
   });
   
 

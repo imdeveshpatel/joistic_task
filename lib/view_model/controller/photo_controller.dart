@@ -10,6 +10,7 @@ class PhotoViewModel extends GetxController {
   var isSearchVisible = false.obs; 
   var searchPhotos = <Photo>[].obs;
   final TextEditingController searchController = TextEditingController();
+  // var isSelected = false.obs;
 
   @override
   void onInit() {
@@ -48,7 +49,7 @@ class PhotoViewModel extends GetxController {
 
  void toggleSelection(int index) {
     var photo = searchPhotos[index];
-    photo.isSelected = !photo.isSelected; // Toggle selection
-    searchPhotos[index] = photo; // Update the photo in the list
+    photo.isSelected.value = !photo.isSelected.value; 
+    searchPhotos[index] = photo; 
   }
 }
