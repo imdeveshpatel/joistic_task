@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:joistic_task/core/constants/image_constant.dart';
 import 'package:joistic_task/core/routing/routes.dart';
+import 'package:joistic_task/view/homepage/home_screen.dart';
+import 'package:joistic_task/view/login/login_screen.dart';
+import 'package:joistic_task/view_model/controller/login_controller.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -13,17 +17,14 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   initState() {
     super.initState();
-    // Future.delayed(const Duration(seconds: 2), () {
-    //   if (FirebaseAuth.instance.currentUser?.uid == null) {
-    //     Navigator.pushReplacementNamed(context, Routes.loginPageRoute);
-    //   } else {
-    //     Navigator.pushReplacementNamed(context, Routes.homePageRoute);
-    //   }
-    //   ;
-    // });
+  
      Future.delayed(const Duration(seconds: 2), () {
-       Navigator.pushReplacementNamed(context, Routes.loginPageRoute);
-       print("object called");
+      Navigator.pushReplacementNamed(context, Routes.homePageRoute);
+      //   Obx(() {
+      //   final AuthService authService = Get.put(AuthService());
+      //   return authService.firebaseUser.value != null ? HomeScreen() : const LoginScreen();
+      // });
+    
      
     });
   }

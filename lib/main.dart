@@ -1,10 +1,13 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:joistic_task/core/routing/router.dart';
 import 'package:joistic_task/core/routing/routes.dart';
 import 'package:joistic_task/view/login/login_screen.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+await Firebase.initializeApp();
   runApp(const MyApp());
 }
 

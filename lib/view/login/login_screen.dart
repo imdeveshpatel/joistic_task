@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:joistic_task/core/constants/color_constant.dart';
-import 'package:joistic_task/core/routing/routes.dart';
+import 'package:joistic_task/view_model/controller/login_controller.dart';
 
 
 
 class LoginScreen extends StatelessWidget {
+  
   const LoginScreen({super.key});
   
 
   @override
   Widget build(BuildContext context) {
+    final AuthService authService = Get.put(AuthService());
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -42,7 +45,8 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
               onPressed: (){
-                  Navigator.pushReplacementNamed(context, Routes.homePageRoute);
+                authService.signInWithGoogle();
+                  // Navigator.pushReplacementNamed(context, Routes.homePageRoute);
               },
             ),
           ],
