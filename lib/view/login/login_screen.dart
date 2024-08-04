@@ -5,7 +5,7 @@ import 'package:joistic_task/view/homepage/home_screen.dart';
 import 'package:joistic_task/core/services/auth_service.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+   const LoginScreen({super.key});
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
