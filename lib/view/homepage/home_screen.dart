@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:joistic_task/core/constants/string_constant.dart';
 import 'package:joistic_task/core/model/photo_model.dart';
-import 'package:joistic_task/view/card_clipper.dart';
+import 'package:joistic_task/view/homepage/card_clipper.dart';
 import 'package:joistic_task/core/services/auth_service.dart';
 import 'package:joistic_task/controller/photo_controller.dart';
 import 'package:joistic_task/view/login/login_screen.dart';
