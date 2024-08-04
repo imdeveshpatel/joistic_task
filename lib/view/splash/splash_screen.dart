@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:joistic_task/core/constants/image_constant.dart';
-import 'package:joistic_task/core/routing/routes.dart';
+import 'package:joistic_task/core/services/auth_service.dart';
 import 'package:joistic_task/view/homepage/home_screen.dart';
 import 'package:joistic_task/view/login/login_screen.dart';
-import 'package:joistic_task/view_model/controller/login_controller.dart';
+import 'package:joistic_task/core/constants/image_constant.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -14,19 +13,25 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  // final AuthService authService = Get.find<AuthService>();
+   final AuthService authService = Get.put(AuthService());
+
   @override
-  initState() {
+  void initState() {
     super.initState();
-  
-     Future.delayed(const Duration(seconds: 2), () {
-      Navigator.pushReplacementNamed(context, Routes.homePageRoute);
-      //   Obx(() {
-      //   final AuthService authService = Get.put(AuthService());
-      //   return authService.firebaseUser.value != null ? HomeScreen() : const LoginScreen();
-      // });
-    
-     
-    });
+    navigateBasedOnAuthStatus();
+  }
+
+  void navigateBasedOnAuthStatus() async {
+    await Future.delayed(const Duration(seconds: 2));
+
+    bool loggedIn = await authService.isLoggedIn();
+
+    if (loggedIn) {
+      Get.offAll(() => HomeScreen());
+    } else {
+      Get.offAll(() => const LoginScreen());
+    }
   }
 
   @override
@@ -43,6 +48,9 @@ class _SplashScreenState extends State<SplashScreen> {
                 ),
               ),
             ),
+            // child: const Center(
+            //   child: CircularProgressIndicator(),
+            // ),
           ),
         ],
       ),

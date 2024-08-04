@@ -3,12 +3,14 @@ import 'package:get/get.dart';
 import 'package:joistic_task/core/constants/string_constant.dart';
 import 'package:joistic_task/core/model/photo_model.dart';
 import 'package:joistic_task/view/card_clipper.dart';
-import 'package:joistic_task/view_model/controller/photo_controller.dart';
+import 'package:joistic_task/core/services/auth_service.dart';
+import 'package:joistic_task/controller/photo_controller.dart';
+import 'package:joistic_task/view/login/login_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
   final PhotoViewModel photoViewModel = Get.put(PhotoViewModel());
-
+  final AuthService authService = Get.find<AuthService>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,11 +20,12 @@ class HomeScreen extends StatelessWidget {
         }
         return SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 32.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 20.0, vertical: 32.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildHeader(),
+                _buildHeader(context),
                 _buildTitle(),
                 _buildPhotoList(),
               ],
@@ -33,7 +36,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildHeader() {
+  Widget _buildHeader(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -44,14 +47,70 @@ class HomeScreen extends StatelessWidget {
               icon: const Icon(Icons.menu),
               onPressed: () {},
             ),
-            IconButton(
-              icon: const Icon(Icons.search),
-              onPressed: () {
-                photoViewModel.isSearchVisible.value = !photoViewModel.isSearchVisible.value;
-                if (!photoViewModel.isSearchVisible.value) {
-                  photoViewModel.searchController.clear();
-                }
-              },
+            Row(
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.search),
+                  onPressed: () {
+                    photoViewModel.isSearchVisible.value =
+                        !photoViewModel.isSearchVisible.value;
+                    if (!photoViewModel.isSearchVisible.value) {
+                      photoViewModel.searchController.clear();
+                    }
+                  },
+                ),
+                // IconButton(
+                //   icon: const Icon(Icons.logout),
+                //   onPressed: () {
+                //     authService.signOut();
+                //       Get.offAll(() => const LoginScreen());
+                //   },
+                // ),
+                IconButton(
+                  icon: const Icon(Icons.logout),
+                  onPressed: () {
+                    authService.signOut();
+
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Row(
+                            children: [
+                              Icon(Icons.exit_to_app,
+                                  color: Colors.red, size: 30),
+                              SizedBox(width: 10),
+                              Text('Logout'),
+                            ],
+                          ),
+                          content:
+                              const Text('Are you sure you want to logout?'),
+                          backgroundColor: Colors.grey[100],
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Get.offAll(() => const LoginScreen());
+                              },
+                              child: const Text('Yes',
+                                  style: TextStyle(color: Colors.red)),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text('No',
+                                  style: TextStyle(color: Colors.blue)),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                )
+              ],
             ),
           ],
         ),
@@ -123,18 +182,18 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 trailing: Obx(() => Container(
-                  width: 25,
-                  height: 25,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: photo.isSelected.value
-                          ? Colors.green
-                          : const Color.fromARGB(255, 122, 33, 238),
-                      width: 7,
-                    ),
-                  ),
-                )),
+                      width: 25,
+                      height: 25,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: photo.isSelected.value
+                              ? Colors.green
+                              : const Color.fromARGB(255, 122, 33, 238),
+                          width: 7,
+                        ),
+                      ),
+                    )),
                 onTap: () {
                   _showPhotoDialog(context, photo);
                 },
@@ -238,7 +297,9 @@ class HomeScreen extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(vertical: 12.0),
                       ),
                       child: Text(
-                        photo.isSelected.value ? 'ALREADY APPLIED' : 'APPLY NOW',
+                        photo.isSelected.value
+                            ? 'ALREADY APPLIED'
+                            : 'APPLY NOW',
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,

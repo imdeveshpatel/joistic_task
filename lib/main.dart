@@ -1,13 +1,15 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:joistic_task/core/routing/router.dart';
-import 'package:joistic_task/core/routing/routes.dart';
-import 'package:joistic_task/view/login/login_screen.dart';
+import 'package:joistic_task/firebase_options.dart';
+import 'package:joistic_task/view/splash/splash_screen.dart';
 
 void main() async{
-  WidgetsFlutterBinding.ensureInitialized();
-await Firebase.initializeApp();
+  WidgetsFlutterBinding.ensureInitialized(
+  );
+await Firebase.initializeApp(
+  options: DefaultFirebaseOptions.currentPlatform,
+);
   runApp(const MyApp());
 }
 
@@ -17,15 +19,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      title: 'Recipe Finder',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+        primarySwatch: Colors.blue,
       ),
-   debugShowCheckedModeBanner: false,
-      home: const LoginScreen(),
-      onGenerateRoute: AppPageRouter.generateRoute,
-      initialRoute: Routes.splashScreenRoute,
+      home: const SplashScreen(),
     );
   }
 }
