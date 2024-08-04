@@ -213,100 +213,98 @@ class HomeScreen extends StatelessWidget {
               color: Colors.white,
               borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
             ),
-            child: Expanded(
-              child: Column(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(right: width * .39),
-                    child: Container(
-                      width: 120,
-                      height: 120,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                          image: NetworkImage(photo.thumbnailUrl),
-                          fit: BoxFit.cover,
-                        ),
+            child: Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(right: width * .39),
+                  child: Container(
+                    width: 120,
+                    height: 120,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: NetworkImage(photo.thumbnailUrl),
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),
-                  const SizedBox(height: 16),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            photo.shortTitle,
-                            style: const TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.w600,
-                            ),
+                ),
+                const SizedBox(height: 16),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          photo.shortTitle,
+                          style: const TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.w600,
                           ),
-                          const SizedBox(height: 8),
-                          Text(
-                            photo.title,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          const SizedBox(height: 16),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Obx(
-                    () => SizedBox(
-                      height: 60,
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: photo.isSelected.value
-                            ? () {
-                                Get.snackbar(
-                                  'Already Applied',
-                                  'You have already applied for this Job.',
-                                  snackPosition: SnackPosition.BOTTOM,
-                                  backgroundColor: Colors.orange,
-                                  colorText: Colors.white,
-                                );
-                                Navigator.pop(context);
-                              }
-                            : () {
-                                photo.isSelected.value = true;
-                                Navigator.pop(context);
-                                Get.snackbar(
-                                  'Success',
-                                  'Applied successfully',
-                                  snackPosition: SnackPosition.BOTTOM,
-                                  backgroundColor: Colors.green,
-                                  colorText: Colors.white,
-                                );
-                              },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: photo.isSelected.value
-                              ? Colors.grey
-                              : const Color.fromARGB(255, 122, 33, 238),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          padding: const EdgeInsets.symmetric(vertical: 12.0),
                         ),
-                        child: Text(
-                          photo.isSelected.value
-                              ? 'ALREADY APPLIED'
-                              : 'APPLY NOW',
+                        const SizedBox(height: 8),
+                        Text(
+                          photo.title,
                           style: const TextStyle(
                             fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
+                            fontWeight: FontWeight.w400,
                           ),
+                        ),
+                        const SizedBox(height: 16),
+                      ],
+                    ),
+                  ),
+                ),
+                Obx(
+                  () => SizedBox(
+                    height: 60,
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: photo.isSelected.value
+                          ? () {
+                              Get.snackbar(
+                                'Already Applied',
+                                'You have already applied for this Job.',
+                                snackPosition: SnackPosition.BOTTOM,
+                                backgroundColor: Colors.orange,
+                                colorText: Colors.white,
+                              );
+                              Navigator.pop(context);
+                            }
+                          : () {
+                              photo.isSelected.value = true;
+                              Navigator.pop(context);
+                              Get.snackbar(
+                                'Success',
+                                'Applied successfully',
+                                snackPosition: SnackPosition.BOTTOM,
+                                backgroundColor: Colors.green,
+                                colorText: Colors.white,
+                              );
+                            },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: photo.isSelected.value
+                            ? Colors.grey
+                            : const Color.fromARGB(255, 122, 33, 238),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        padding: const EdgeInsets.symmetric(vertical: 12.0),
+                      ),
+                      child: Text(
+                        photo.isSelected.value
+                            ? 'ALREADY APPLIED'
+                            : 'APPLY NOW',
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
                         ),
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         );
